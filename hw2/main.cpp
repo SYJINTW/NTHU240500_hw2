@@ -16,18 +16,18 @@ uLCD_4DGL uLCD(D1, D0, D2); // serial tx, serial rx, reset pin;
 AnalogOut aout(PA_4);
 
 float freqlist[5] = {1, 82.6, 500, 826.33, 1000};
-float ADCdata[500]; // record sample data
+float ADCdata[1000]; // record sample data
 
 void sample(void)
 {
     //t.start();
-    for(int i = 0; i < 500; i++)
+    for(int i = 0; i < 1000; i++)
     {
         ADCdata[i] = aout;
         ThisThread::sleep_for(2ms); // let it finish in 1sec
     }
     //t.stop();
-    for(int i = 0; i < 500; i++)
+    for(int i = 0; i < 1000; i++)
     {
         printf("%f\r\n", ADCdata[i]);
     }
@@ -81,14 +81,19 @@ int main()
     // main loop
     while(1)
     {
-        for(float i = 0; i < amp; i += amp / (uptime / 0.000021))
+        //t.start();
+        for(float i = 0; i < amp; i += amp / (uptime/0.0000237))
         {
             aout = i;
         }
-        for(float i = amp; i > 0; i -= amp / (downtime/0.000021))
+        //t.stop();
+        for(float i = amp; i > 0; i -= amp / (downtime/0.0000237))
         {
             aout = i;
         }
+        //auto s = t.elapsed_time().count();
+        //printf("time: %llus\n", s); // -> 3 sec & 500
+        //ThisThread::sleep_for(5s);
     }
 
     thread.join();
