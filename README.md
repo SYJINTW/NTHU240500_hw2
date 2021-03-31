@@ -20,7 +20,7 @@ It is about using creating a GUI on uLCD, then use DAC to create a triangle wave
 <!-- GETTING STARTED -->
 ## Getting Started
 
-### Running
+### Running & compile
 
 * Embedding in B_L4S5I_IOT01A
   
@@ -66,7 +66,16 @@ It is about using creating a GUI on uLCD, then use DAC to create a triangle wave
         uLCD.printf("SELECT %.2f Hz\n", freq);
     ```
 
-1. Generate the triangle waveform by DAC, and define the X-axis value when the waveform peaks at 3V, and 1/10 wave length from left is the peak. However, I calculate the time of for-loop by Timer to replace using sleep_for(). The timer is `0.00021 seconds` in one for-loop.
+    GUI may look like the image below.
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_1.png?raw=true">
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_82.6.png?raw=true">  
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_500.png?raw=true">  
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_826.png?raw=true">  
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_1000.png?raw=true">  
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_select.png?raw=true">  
+
+
+1. Generate the triangle waveform by DAC, and define the X-axis value when the waveform peaks at 3V, and 1/10 wave length from left is the peak. So first I change the amp to 3V by transform by 3/3.3. However, I calculate the time of for-loop by Timer to replace using sleep_for(). The timer is `0.000237 seconds` in one for-loop.
     ```C++
     // setting
     double T = 1/freq;
@@ -80,11 +89,11 @@ It is about using creating a GUI on uLCD, then use DAC to create a triangle wave
     // main loop
     while(1)
     {
-        for(float i = 0; i < amp; i += amp / (uptime / 0.000021))
+        for(float i = 0; i < amp; i += amp / (uptime / 0.0000237))
         {
             aout = i;
         }
-        for(float i = amp; i > 0; i -= amp / (downtime/0.000021))
+        for(float i = amp; i > 0; i -= amp / (downtime/0.0000237))
         {
             aout = i;
         }
@@ -117,10 +126,11 @@ So that we know the freqency of sample is `500/3=16.66667Hz`
         printf("time: %llus\n", s); // -> 3 sec & 500
     }
     ```
+    
 1. In FFT.py, we must change the sampling rate to the loop frequency in sample function.
     
     ```python
-    Fs = 166.6666667
+    Fs = 1000.000
     ```
 
 <!-- Screenshot -->
@@ -128,15 +138,31 @@ So that we know the freqency of sample is `500/3=16.66667Hz`
 
 * Picoscope result at 1 Hz
   
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/1Hz.png?raw=true">  
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/wv_1Hz.png?raw=true">  
 
 * Python Matplotlib at 1 Hz
 
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/1Hz_py.png?raw=true">
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/py_1Hz.png?raw=true">
+
+* Picoscope result at 82.6 Hz
+    
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/wv_82.6Hz.png?raw=true">  
+
+* Python Matplotlib at 82.6 Hz
+    
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/py_82.6Hz.png?raw=true">
+
+* Picoscope result at 500 Hz
+
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/wv_500Hz.png?raw=true">  
+
+* Python Matplotlib at 500 Hz
+
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/py_500Hz.png?raw=true">
 
 * Picoscope result at 826.3 Hz (cut-off frequency)
   
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/826Hz.png?raw=true"> 
+    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/wv_826Hz.png?raw=true"> 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
