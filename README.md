@@ -178,5 +178,5 @@ So that we know the freqency of sample is `500/3=16.66667Hz`
 ## Acknowledgements
 
 * [Electronics Tutorials](https://www.electronics-tutorials.ws/filter/filter_2.html)
-* [w3schools.com](https://www.w3schools.com/python/)
+* [Embedded System Lab](https://www.ee.nthu.edu.tw/ee240500/)
 
