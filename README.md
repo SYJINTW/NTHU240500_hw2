@@ -66,13 +66,13 @@ It is about using creating a GUI on uLCD, then use DAC to create a triangle wave
         uLCD.printf("SELECT %.2f Hz\n", freq);
     ```
 
-    GUI may look like the image below.
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_1.png?raw=true">
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_82.6.png?raw=true">  
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_500.png?raw=true">  
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_826.png?raw=true">  
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_1000.png?raw=true">  
-    <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_select.png?raw=true">  
+    * GUI may look like the image below.
+        <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_1.png?raw=true">
+        <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_82.6.png?raw=true">  
+        <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_500.png?raw=true">  
+        <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_826.png?raw=true">  
+        <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_1000.png?raw=true">  
+        <img src="https://github.com/SYJINTW/NTHU240500_hw2/blob/master/hw2/src/uLCD_select.png?raw=true">  
 
 
 1. Generate the triangle waveform by DAC, and define the X-axis value when the waveform peaks at 3V, and 1/10 wave length from left is the peak. So first I change the amp to 3V by transform by 3/3.3. However, I calculate the time of for-loop by Timer to replace using sleep_for(). The timer is `0.000237 seconds` in one for-loop.
