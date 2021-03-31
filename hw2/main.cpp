@@ -1,13 +1,13 @@
 #include "mbed.h"
-#include "uLCD_4DGL.h"
+#include "uLCD_4DGL.h" // for uLCD
 #include <iostream>
-#include <thread>
+#include <thread> // for thread
 #include <ctime> // for clock
 
-using namespace std::chrono;
+using namespace std::chrono; // to set nanosecondsd
 
 Timer t;
-Thread thread;
+Thread thread; // the thread for sample
 
 DigitalIn upbn(D13);
 DigitalIn downbn(D11);
@@ -16,7 +16,7 @@ uLCD_4DGL uLCD(D1, D0, D2); // serial tx, serial rx, reset pin;
 AnalogOut aout(PA_4);
 
 float freqlist[5] = {1, 82.6, 500, 826.33, 1000};
-float ADCdata[500];
+float ADCdata[500]; // record sample data
 
 void sample(void)
 {

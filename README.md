@@ -42,8 +42,86 @@ It is about using creating a GUI on uLCD, then use DAC to create a triangle wave
 <!-- ROADMAP -->
 ## Roadmap
 
-Skip for now.  
-Study probability first.
+1. Create GUI for choosing the which freqency to generate. And sleep 100ms to refreshing the output on uLCD.
+
+    ```C++
+    float freq = freqlist[0];
+        int pos = 0;
+
+        // GUI
+        while(1)
+        {
+            if(upbn.read() && pos!=4) pos++;
+            else if(downbn.read() && pos!=0) pos--;
+            else if(selectbn.read())
+            {
+                freq = freqlist[pos];
+                break;
+            }
+            uLCD.locate(0,0);
+            uLCD.printf("%-6.f\n", freqlist[pos]);
+            ThisThread::sleep_for(100ms);
+        }
+        uLCD.locate(0,1);
+        uLCD.printf("SELECT %.2f Hz\n", freq);
+    ```
+
+1. Generate the triangle waveform by DAC, and define the X-axis value when the waveform peaks at 3V, and 1/10 wave length from left is the peak. However, I calculate the time of for-loop by Timer to replace using sleep_for(). The timer is `0.00021 seconds` in one for-loop.
+    ```C++
+    // setting
+    double T = 1/freq;
+    double amp = 3/3.3;
+    double uptime = T / 10;
+    double downtime = T / 10 * 9;
+    
+    // start thread for sample
+    thread.start(sample);
+
+    // main loop
+    while(1)
+    {
+        for(float i = 0; i < amp; i += amp / (uptime / 0.000021))
+        {
+            aout = i;
+        }
+        for(float i = amp; i > 0; i -= amp / (downtime/0.000021))
+        {
+            aout = i;
+        }
+    }
+    ```
+
+1. Use Timer to calculate the time of the loop, and use `duration_cast<chrono::seconds>(t.elapsed_time()).count()` to get the time of the loop, the time will be `3 seconds`.
+So that we know the freqency of sample is `500/3=16.66667Hz`
+    ```C++
+    // in main function
+    ...
+    thread.start(sample);
+    ...
+
+    // sample function define
+    void sample(void)
+    {
+        t.start();
+        for(int i = 0; i < 500; i++)
+        {
+            ADCdata[i] = aout;
+            ThisThread::sleep_for(2ms); // let it finish in 1sec
+        }
+        //t.stop();
+        for(int i = 0; i < 500; i++)
+        {
+            printf("%f\r\n", ADCdata[i]);
+        }
+        auto s = chrono::duration_cast<chrono::seconds>(t.elapsed_time()).count();
+        printf("time: %llus\n", s); // -> 3 sec & 500
+    }
+    ```
+1. In FFT.py, we must change the sampling rate to the loop frequency in sample function.
+    
+    ```python
+    Fs = 166.6666667
+    ```
 
 <!-- Screenshot -->
 ## Results
