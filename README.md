@@ -9,6 +9,16 @@ It is about using creating a GUI on uLCD, then use DAC to create a triangle wave
 * C++
 * Python
 
+### Equipment List
+* PC or notebook
+* B_L4S5I_IOT01A
+* Bread board
+* Buttons * 3
+* Picoscope
+* uLCD display
+* Wires * 20
+* Resistor and Capacitor
+
 ## Homework Description
 * (Inputs) Add buttons on the bread board (as DigitalIn): up, down and select.
 * (Display) Create a selection display on uLCD to select from a few frequencies by your choice, e.g., 100Hz, 200Hz, etc.
