@@ -14,20 +14,21 @@ DigitalIn downbn(D11);
 DigitalIn selectbn(D12);
 uLCD_4DGL uLCD(D1, D0, D2); // serial tx, serial rx, reset pin;
 AnalogOut aout(PA_4);
+AnalogIn ain(PC_0);
 
 float freqlist[5] = {1, 82.6, 500, 826.33, 1000};
-float ADCdata[1000]; // record sample data
+float ADCdata[500]; // record sample data
 
 void sample(void)
 {
     //t.start();
-    for(int i = 0; i < 1000; i++)
+    for(int i = 0; i < 500; i++)
     {
-        ADCdata[i] = aout;
-        ThisThread::sleep_for(2ms); // let it finish in 1sec
+        ADCdata[i] = ain;
+        ThisThread::sleep_for(2000ms/500);
     }
     //t.stop();
-    for(int i = 0; i < 1000; i++)
+    for(int i = 0; i < 500; i++)
     {
         printf("%f\r\n", ADCdata[i]);
     }
